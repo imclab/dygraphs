@@ -49,8 +49,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \code
  *     var d = new Date();
  *
- *     var ymd = d.strftime('%Y/%m/%d');
- *     var iso = d.strftime('%Y-%m-%dT%H:%M:%S%z');
+ *     var ymd = d.strftime('%Y/%m/%d', false); // your local timezone
+ *     var iso = d.strftime('%Y-%m-%dT%H:%M:%S%z', true); // GMT+0 or UTC
  *
  * \endcode
  *
@@ -332,7 +332,7 @@ Date.ext.unsupported = { };
  * \return	A string representation of the date formatted based on the passed in parameter
  * \sa http://www.php.net/strftime for documentation on format specifiers
 */
-Date.prototype.strftime=function(fmt)
+Date.prototype.strftime=function(fmt, gmt)
 {
 	// Fix locale if declared locale hasn't been defined
 	// After the first call this condition should never be entered unless someone changes the locale
@@ -349,6 +349,11 @@ Date.prototype.strftime=function(fmt)
 	}
 
 	var d = this;
+
+        if (typeof gmt != 'undefined' && gmt == 1) {
+		d.setTime(d.getTime() + (d.getTimezoneOffset() * 60000));
+	}
+
 	// First replace aggregates
 	while(fmt.match(/%[cDhnrRtTxXzZ]/))
 	{

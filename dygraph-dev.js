@@ -16,7 +16,8 @@
   // This list needs to be kept in sync w/ the one in generate-combined.sh
   // and the one in jsTestDriver.conf.
   var source_files = [
-    "strftime/strftime-min.js",
+    //"strftime/strftime-min.js",
+    "strftime/strftime.js",
     "rgbcolor/rgbcolor.js",
     "stacktrace.js",
     "dygraph-layout.js",

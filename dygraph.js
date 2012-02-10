@@ -169,13 +169,13 @@ Dygraph.dateString_ = function(date) {
  */
 Dygraph.dateAxisFormatter = function(date, granularity) {
   if (granularity >= Dygraph.DECADAL) {
-    return date.strftime('%Y');
+    return date.strftime('%Y', true);
   } else if (granularity >= Dygraph.MONTHLY) {
-    return date.strftime('%b %y');
+    return date.strftime('%b %y', true);
   } else {
     var frac = date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds() + date.getMilliseconds();
     if (frac === 0 || granularity >= Dygraph.DAILY) {
-      return new Date(date.getTime() + 3600*1000).strftime('%d%b');
+      return new Date(date.getTime() + 3600*1000).strftime('%d%b', true);
     } else {
       return Dygraph.hmsString_(date.getTime());
     }
@@ -2862,7 +2862,9 @@ Dygraph.prototype.parseArray_ = function(data) {
         this.error("x value in row " + (1 + i) + " is not a Date");
         return null;
       }
-      parsedData[i][0] = parsedData[i][0].getTime();
+      //parsedData[i][0] = parsedData[i][0].getTime();
+      // Josep UTC
+      parsedData[i][0] = (parsedData[i][0].getTime() + (parsedData[i][0].getTimezoneOffset() * 60000));
     }
     return parsedData;
   } else {

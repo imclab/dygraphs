@@ -40,5 +40,19 @@
                          labels: [ "x", "A", "B" ]
                        });
     </script>
+    <p>Same data, specified in a parsed format, dates on x axis:</p>
+    <div id="graphdiv3"></div>
+    <script type="text/javascript">
+      g3 = new Dygraph(document.getElementById("graphdiv3"),
+                       [
+                         [new Date(0),10,100],
+                         [new Date(1000),20,80],
+                         [new Date(2000),50,60],
+                         [new Date(3000),70,80]
+                       ],
+                       {
+                         labels: [ "time", "A", "B" ]
+                       });
+    </script>
   </body>
 </html>
