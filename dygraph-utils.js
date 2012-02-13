@@ -389,6 +389,7 @@ Dygraph.zeropad = function(x) {
  */
 Dygraph.hmsString_ = function(date) {
   var zeropad = Dygraph.zeropad;
+  //var d = new Date(Date.UTC(0,0,0,0,0,0,date));
   var d = new Date(date);
   if (d.getSeconds()) {
     return zeropad(d.getHours()) + ":" +
@@ -515,7 +516,11 @@ Dygraph.dateParser = function(dateStr) {
  * @return { Integer } millis since epoch
  */
 Dygraph.dateStrToMillis = function(str) {
-  return new Date(str).getTime();
+  // Josep UTC
+  var d = new Date(str);
+  return d.getTime() + (d.getTimezoneOffset() * 60000);  
+  //return d;
+  //return new Date(str).getTime();
 };
 
 // These functions are all based on MochiKit.
